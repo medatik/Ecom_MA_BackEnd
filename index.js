@@ -9,11 +9,13 @@ const connectDB = require('./config/dbConfig');
 require('./models/Category');
 require('./models/Product');
 require('./models/Promotion');
+require('./models/Carousel');
 
 // Import routes
 const productRoutes = require('./routes/productRoutes');
 const promotionRoutes = require('./routes/promotionRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const carouselRoutes = require('./routes/carouselRoute');
 
 // Créer l'application Express
 const app = express();
@@ -32,6 +34,8 @@ app.use(express.static(path.join(__dirname, 'public'))); // Pour servir des fich
 app.use('/api/products', productRoutes);
 app.use('/api/promotions', promotionRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api', carouselRoutes);
+
 
 // Default route
 app.get('/', (req, res) => {

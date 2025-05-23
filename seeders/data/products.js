@@ -11,6 +11,7 @@ const productData = [
         "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500",
         ],
         stock: 45,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Storage", "256GB"],
@@ -33,6 +34,7 @@ const productData = [
         "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=500",
         ],
         stock: 38,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Storage", "512GB"],
@@ -53,6 +55,7 @@ const productData = [
         "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=500",
         ],
         stock: 52,
+        stockShortage: 30,
         isActive: false,
         specifications: new Map([
         ["Storage", "128GB"],
@@ -76,6 +79,7 @@ const productData = [
         "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500",
         ],
         stock: 18,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Processor", "Apple M3 Max"],
@@ -95,7 +99,8 @@ const productData = [
         images: [
         "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500",
         ],
-        stock: 25,
+        stock: 0,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Processor", "Intel Core i7-1360P"],
@@ -117,6 +122,7 @@ const productData = [
         "https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=500",
         ],
         stock: 12,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Processor", "Intel Core i7-13700KF"],
@@ -139,6 +145,7 @@ const productData = [
         "https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=500",
         ],
         stock: 85,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Noise Cancellation", "Active Noise Cancellation"],
@@ -158,7 +165,8 @@ const productData = [
         images: [
         "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
         ],
-        stock: 42,
+        stock: 0,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Noise Cancellation", "Industry Leading"],
@@ -179,6 +187,7 @@ const productData = [
         "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500",
         ],
         stock: 28,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Connectivity", "Bluetooth 5.2"],
@@ -201,6 +210,7 @@ const productData = [
         "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",
         ],
         stock: 65,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Material", "100% Pima Cotton"],
@@ -219,6 +229,7 @@ const productData = [
         category: "Clothing & Fashion",
         images: ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=500"],
         stock: 48,
+        stockShortage: 30,
         isActive: false,
         specifications: new Map([
         ["Material", "98% Cotton, 2% Elastane"],
@@ -240,7 +251,8 @@ const productData = [
         images: [
         "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500",
         ],
-        stock: 35,
+        stock: 135,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Material", "Chiffon Blend"],
@@ -257,7 +269,8 @@ const productData = [
         price: 189.99,
         category: "Clothing & Fashion",
         images: ["https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=500"],
-        stock: 29,
+        stock: 0,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Material", "70% Cashmere, 30% Wool"],
@@ -277,7 +290,8 @@ const productData = [
         price: 149.99,
         category: "Clothing & Fashion",
         images: ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500"],
-        stock: 72,
+        stock: 12,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Type", "Running Shoes"],
@@ -296,6 +310,7 @@ const productData = [
         category: "Clothing & Fashion",
         images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500"],
         stock: 33,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Material", "Genuine Leather"],
@@ -318,6 +333,7 @@ const productData = [
         "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500",
         ],
         stock: 22,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Material", "Leather and Mesh"],
@@ -336,6 +352,7 @@ const productData = [
         category: "Home & Garden",
         images: ["https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500"],
         stock: 15,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Material", "Tempered Glass + Oak Wood"],
@@ -357,7 +374,8 @@ const productData = [
         images: [
         "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500",
         ],
-        stock: 18,
+        stock: 0,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Capacity", "6 Quart Bowl"],
@@ -378,6 +396,7 @@ const productData = [
         "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500",
         ],
         stock: 31,
+        stockShortage: 30,
         isActive: false,
         specifications: new Map([
         ["Capacity", "12 cups"],
@@ -400,6 +419,7 @@ const productData = [
         "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=500",
         ],
         stock: 14,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Weight Range", "10-90 lbs per dumbbell"],
@@ -419,7 +439,8 @@ const productData = [
         images: [
         "https://images.unsplash.com/photo-1506629905607-ced3fdc74db6?w=500",
         ],
-        stock: 58,
+        stock: 158,
+        stockShortage: 30,
         isActive: true,
         specifications: new Map([
         ["Thickness", "6mm"],
@@ -441,7 +462,8 @@ const productData = [
         images: [
         "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500",
         ],
-        stock: 41,
+        stock: 30,
+        stockShortage: 30,
         isActive: false,
         specifications: new Map([
         ["Battery Life", "40 hours"],

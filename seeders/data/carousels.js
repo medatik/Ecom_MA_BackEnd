@@ -39,7 +39,7 @@ const carouselData = [
         link: "/categories/clothing-fashion",
         buttonText: "Shop Collection",
         order: 4,
-        isActive: true,
+        isActive: false,
         startDate: new Date('2024-04-15'),
         endDate: new Date('2024-09-15')
     },
@@ -83,7 +83,7 @@ const carouselData = [
         link: "/back-to-school",
         buttonText: "Shop Essentials",
         order: 8,
-        isActive: false,
+        isActive: true,
         startDate: new Date('2023-09-01'),
         endDate: new Date('2023-09-15')
     }

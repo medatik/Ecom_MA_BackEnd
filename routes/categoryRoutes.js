@@ -1,18 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { 
-    getAllCategories,
-    getCategoryBySlug
+    get_all_active_categories,
+    get_products_by_category_id
 } = require('../controllers/categoryController');
 
-// @route   GET /api/categories
-// @desc    Get all active categories
-// @access  Public
-router.get('/', getAllCategories);
+// GET /api/categories
+router.get('/', get_all_active_categories);
 
-// @route   GET /api/categories/:slug
-// @desc    Get category by slug with its products
-// @access  Public
-router.get('/:slug', getCategoryBySlug);
+// GET /api/categories/:slug
+router.get('/:id', get_products_by_category_id);
 
 module.exports = router; 

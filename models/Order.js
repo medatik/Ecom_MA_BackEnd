@@ -26,17 +26,9 @@ const orderSchema = new mongoose.Schema({
         type: Number,
     },
     shippingAddress: [{
-        country: {
-            type: String,
-
-        },
-        city: {
-            type: String,
-        },
-        address: {
-            type: String,
-        },
-        
+        country:  String,
+        city: String,
+        address: String,
     }],
     status: {
         type: String,
@@ -53,8 +45,6 @@ const orderSchema = new mongoose.Schema({
         enum: ['pending', 'completed', 'failed', 'refunded'],
         default: 'pending'
     },
-    trackingNumber: String,
-    notes: String
 }, {
     timestamps: true
 });

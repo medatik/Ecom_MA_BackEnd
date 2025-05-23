@@ -14,7 +14,6 @@ const categorySchema = new mongoose.Schema(
     },
     slug: {
       type: String,
-      unique: true,
       lowercase: true,
     },
     image: {
@@ -40,7 +39,7 @@ const categorySchema = new mongoose.Schema(
 // Create slug from name before saving
 categorySchema.pre("save", function (next) {
     if (!this.slug) {
-        this.slug = this.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, "-") + "-" + this._id;
+        this.slug = this.name.toLowerCase().replace(/[^a-zA-Z0-9&]/g, "-");
     }
     next();
 });
