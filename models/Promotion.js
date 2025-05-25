@@ -100,5 +100,12 @@ promotionSchema.methods.isValid = function() {
     );
 };
 
+// ✅ Indexes for performance
+promotionSchema.index({ code: 1, isActive: 1 });
+promotionSchema.index({isActive: 1, startDate: 1, endDate: 1 });
+promotionSchema.index({ applicableProducts: 1 });
+promotionSchema.index({ applicableCategories: 1 });
+
+
 const Promotion = mongoose.model('Promotion', promotionSchema);
 module.exports = Promotion; 

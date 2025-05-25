@@ -85,5 +85,12 @@ productSchema.pre("save", function (next) {
     next();
 });
 
+// ✅ Indexes for performance
+productSchema.index({ name: 1 });  
+productSchema.index({ slug: 1 });
+productSchema.index({ category: 1 });
+productSchema.index({ isActive: 1 });
+productSchema.index({ stockStatus: 1 });
+
 const Product = mongoose.model("Product", productSchema);
 module.exports = Product;

@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
         required: [true, 'Please provide a phone number'],
-        trim: true
+        trim: true,
+        unique: true,
     },
     isActive: {
         type: Boolean,
@@ -47,6 +48,12 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.comparePassword = async function(candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
+
+// ✅ Indexes for performance
+userSchema.index({ email: 1 });
+userSchema.index({ role: 1 });
+userSchema.index({ isActive: 1 });
+userSchema.index({ phoneNumber: 1 }, { unique: true });
 
 const User = mongoose.model('User', userSchema);
 module.exports = User; 

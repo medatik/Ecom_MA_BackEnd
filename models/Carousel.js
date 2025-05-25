@@ -50,5 +50,13 @@ carouselSchema.pre('save', function(next) {
     return next();
 });
 
+// ✅ Indexes for performance
+carouselSchema.index({ isActive: 1 });
+
+// Optional compound index if you query active carousels within date ranges
+carouselSchema.index({ isActive: 1, startDate: 1, endDate: 1 });
+
+carouselSchema.index({ order: 1 });
+
 const Carousel = mongoose.model('Carousel', carouselSchema);
 module.exports = Carousel; 

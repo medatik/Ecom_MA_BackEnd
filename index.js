@@ -31,10 +31,10 @@ app.use(express.urlencoded({ extended: true })); // Pour parser les données de 
 app.use(express.static(path.join(__dirname, 'public'))); // Pour servir des fichiers statiques
 
 // Routes
-app.use('/api/products', productRoutes);
-app.use('/api/promotions', promotionRoutes);
-app.use('/api/categories', categoryRoutes);
 app.use('/api', carouselRoutes);
+app.use('/api', promotionRoutes);
+app.use('/api', categoryRoutes);
+app.use('/api/products', productRoutes);
 
 
 // Default route

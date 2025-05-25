@@ -6,9 +6,9 @@ const {
 } = require('../controllers/categoryController');
 
 // GET /api/categories
-router.get('/', get_all_active_categories);
+router.get('/categories', get_all_active_categories);
 
 // GET /api/categories/:slug
-router.get('/:id', get_products_by_category_id);
+router.get('/categories/:id', get_products_by_category_id);
 
 module.exports = router; 

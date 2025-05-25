@@ -44,5 +44,11 @@ categorySchema.pre("save", function (next) {
     next();
 });
 
+// ✅ Indexes for performance
+categorySchema.index({ name: 1 });
+categorySchema.index({ slug: 1 });
+categorySchema.index({ isActive: 1 });
+
+
 const Category = mongoose.model("Category", categorySchema);
 module.exports = Category;

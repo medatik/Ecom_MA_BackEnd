@@ -1,60 +1,62 @@
-const Promotion = require('../models/Promotion');
+const Promotion = require("../models/Promotion");
+const Product = require("../models/Product");
 
-// @desc    Get all promotions with remaining time
-// @route   GET /api/promotions
-// @access  Public
-exports.getAllPromotions = async (req, res) => {
+exports.get_all_active_promotions = async (req, res) => {
     try {
-        const promotions = await Promotion.find({ isActive: true })
-            .lean();
+        const promotions = await Promotion.find({
+        isActive: true,
+        startDate: { $lte: new Date() },
+        endDate: { $gte: new Date() },
+        })
+        .select("-__v -updatedAt -createdAt -isActive")
+        .lean();
 
-        const currentDate = new Date();
 
-        // Enhance promotions with remaining time
-        const enhancedPromotions = promotions.map(promotion => {
-            const endDate = new Date(promotion.endDate);
-            const timeDiff = endDate - currentDate;
+        if(!promotions || promotions.length === 0) {
+            return res.status(404).json({
+                success: false,
+                error: "Not Found",
+                message: "No active promotions found",
+            });
+        }
 
-            // Calculate remaining time components
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+        const productsWithPromotion = await Promise.all(
+            promotions.map(async (promo) => {
+                let products = [];
 
-            // Format remaining time
-            const remainingTime = timeDiff > 0 
-                ? `${days}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-                : 'Expired';
+                if (promo.applicableProducts && promo.applicableProducts.length > 0) {
+                    products = await Product.find({
+                        _id: { $in: promo.applicableProducts },
+                        isActive: true,
+                    }).select("name slug description image price oldPrice").limit(3).lean();
+                }
+                else if (promo.applicableCategories && promo.applicableCategories.length > 0) {
+                    products = await Product.find({
+                        category : { $in: promo.applicableCategories },
+                        isActive: true,
+                    }).select("name slug description image price oldPrice").limit(3).lean();
+                }
 
-            // Check if promotion is still valid
-            const isValid = timeDiff > 0 && promotion.isActive && 
-                (!promotion.usageLimit || promotion.usedCount < promotion.usageLimit);
-
-            return {
-                ...promotion,
-                remainingTime,
-                isValid,
-                status: isValid ? 'Active' : 'Expired'
-            };
-        });
+                return {
+                    ...promo,
+                    products,
+                };
+            })
+        );
 
         res.status(200).json({
-            success: true,
-            count: enhancedPromotions.length,
-            data: enhancedPromotions.sort((a, b) => {
-                // Sort by validity (active first) and then by remaining time
-                if (a.isValid !== b.isValid) return b.isValid - a.isValid;
-                if (a.remainingTime === 'Expired') return 1;
-                if (b.remainingTime === 'Expired') return -1;
-                return new Date(a.endDate) - new Date(b.endDate);
-            })
+        success: true,
+        count: productsWithPromotion.length,
+        items: productsWithPromotion,
+        message: "Active promotions fetched successfully",
         });
+
     } catch (error) {
-        console.error('Error fetching promotions:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Server Error',
-            message: error.message
+        console.error("Error fetching promotions:", error);
+        return res.status(500).json({
+        success: false,
+        error: "Server Error",
+        message: error.message,
         });
     }
-}; 
+};

@@ -6,6 +6,7 @@ const Cart = require("../models/Cart");
 const Order = require("../models/Order");
 const Carousel = require("../models/Carousel");
 const Promotion = require("../models/Promotion");
+const ProductSale = require("../models/ProductSale");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -21,7 +22,8 @@ const promotionData = require("./data/promotions");
 const URL = process.env.MONGODB_URL;
 
 const deleteData = async () => {
-
+    const start = new Date();
+    console.log(`Deleting all data from the database...`);
     await Category.deleteMany();
     console.log("Deleted all categories");
 
@@ -42,19 +44,34 @@ const deleteData = async () => {
     
     await Promotion.deleteMany();
     console.log("Deleted all promotions");
+
+    await ProductSale.deleteMany();
+    console.log("Deleted all product sales");
+
+    const end = new Date();
+    const duration = (end - start) / 1000; 
+    console.log(`All data deleted successfully in ${duration} seconds`);
+    console.log("--------------------------------------------------");
 }
 
 const insertCategories = async () => {
+    const start = new Date();
+    console.log(`Inserting categories...`);
     let i = 0;
     for (const data of categorieData) {
     const category = new Category(data);
     await category.save(); // This triggers the pre-save hook and generates slug properly
     i++;
     }
-    console.log(`Inserted ${i} categories successfully`);
+    const end = new Date();
+    const duration = (end - start) / 1000; 
+    console.log(`Inserted ${i} categories successfully in ${duration} seconds`);
+    console.log("--------------------------------------------------");
 }
 
 const insertProducts = async () => {
+    const start = new Date();
+    console.log(`Inserting products...`);
     let i = 0;
     for (const data of productData) {
     const product = new Product(data);
@@ -64,20 +81,30 @@ const insertProducts = async () => {
     await product.save();
     i++;
     }
-    console.log(`Inserted ${i} products successfully`);
+    const end = new Date();
+    const duration = (end - start) / 1000;
+    console.log(`Inserted ${i} products successfully in ${duration} seconds`);
+    console.log("--------------------------------------------------");
 }
 
 const insertUsers = async () => {
+    const start = new Date();
+    console.log(`Inserting users...`);
     let i = 0;
     for (const data of userData) {
         const user = new User(data);
         await user.save();
         i++;
         }
-        console.log(`Inserted ${i} users successfully`);
+    const end = new Date();
+    const duration = (end - start) / 1000;
+    console.log(`Inserted ${i} users successfully in ${duration} seconds`);
+    console.log("--------------------------------------------------");
 }
 
 const insertCarts = async () => {
+    const start = new Date();
+    console.log(`Inserting carts...`);
     let i = 0;
     for (const data of cartData) {
         // Find the user ObjectId
@@ -112,10 +139,15 @@ const insertCarts = async () => {
         await cart.save();
         i++;
         }
-        console.log(`Inserted ${i} carts successfully`);
+    const end = new Date();
+    const duration = (end - start) / 1000;
+    console.log(`Inserted ${i} carts successfully in ${duration} seconds`);
+    console.log("--------------------------------------------------");
 }
 
 const insertOrders = async () => {
+    const start = new Date();
+    console.log(`Inserting orders...`);
     let i = 0;
     for (const data of orderData) {
         // Find the user ObjectId
@@ -125,7 +157,6 @@ const insertOrders = async () => {
             continue;
         }
 
-        // Create cart items with product ObjectIds
         const orderItems = [];
         for (const item of data.items) {
             const productDoc = await Product.findOne({ name: item.product }).select(
@@ -151,20 +182,30 @@ const insertOrders = async () => {
         await order.save();
         i++;
         }
-        console.log(`Inserted ${i} orders successfully`);
+    const end = new Date();
+    const duration = (end - start) / 1000;
+        console.log(`Inserted ${i} orders successfully in ${duration} seconds`);
+    console.log("--------------------------------------------------");
 }
 
 const insertCarousels = async () => {
+    const start = new Date();
+    console.log(`Inserting carousels...`);
     let i = 0;
     for (const data of carouselData) {
     const carousel = new Carousel(data);
     await carousel.save();
     i++;
     }
-    console.log(`Inserted ${i} carousels successfully`);
+    const end = new Date();
+    const duration = (end - start) / 1000;
+    console.log(`Inserted ${i} carousels successfully in ${duration} seconds`);
+    console.log("--------------------------------------------------");
 }
 
 const insertPromotions = async () => {
+    const start = new Date();
+    console.log(`Inserting promotions...`);
     let i = 0;
     for (const promo of promotionData) {
         const promoDoc = { ...promo };
@@ -185,7 +226,10 @@ const insertPromotions = async () => {
         await promotion.save();
         i++;
     }
-    console.log(`Inserted ${i} promotions successfully`);
+    const end = new Date();
+    const duration = (end - start) / 1000;
+    console.log(`Inserted ${i} promotions successfully in ${duration} seconds`);
+    console.log("--------------------------------------------------");
 }
 
 const seedData = async () => {
