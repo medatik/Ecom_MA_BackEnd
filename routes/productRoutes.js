@@ -2,17 +2,17 @@ const express = require('express');
 const router = express.Router();
 const { 
     getAllProducts,
-    getProductBySlug
+    getProductBySlugOrId,
+    getProductFeatures
 } = require('../controllers/productController');
 
-// @route   GET /api/products
-// @desc    Get all products with filters
-// @access  Public
-router.get('/', getAllProducts);
+// GET /api/products
+router.get('/products', getAllProducts);
 
-// @route   GET /api/products/:slug
-// @desc    Get product by slug
-// @access  Public
-router.get('/:slug', getProductBySlug);
+// GET /api/products/:slug-id
+router.get('/products/:slugOrId', getProductBySlugOrId);
+
+// GET /api/product-features
+router.get('/product-features', getProductFeatures);
 
 module.exports = router; 

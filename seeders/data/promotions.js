@@ -6,7 +6,7 @@ const promotionData = [
         type: "discount",
         value: 20,
         code: "ELECTRONICS20",
-        startDate: new Date('2025-06-01'),
+        startDate: new Date('2025-05-01'),
         endDate: new Date('2025-06-08'),
         minimumPurchase: 100,
         maximumDiscount: 500,

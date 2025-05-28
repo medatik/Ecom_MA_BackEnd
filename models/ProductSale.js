@@ -15,7 +15,11 @@ const productSaleSchema = new mongoose.Schema({
         type: Number,
         default: 0,
         min: [0, "Total revenue cannot be negative"]
-    }
+    },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
 },{
     timestamps: true
 });

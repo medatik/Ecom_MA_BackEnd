@@ -9,7 +9,6 @@ const productSchema = new mongoose.Schema(
         },
         slug: {
         type: String,
-        unique: true,
         lowercase: true,
         },
         description: {
@@ -66,7 +65,7 @@ const productSchema = new mongoose.Schema(
 // Create slug from name before saving
 productSchema.pre("save", function (next) {
     this.slug =
-        this.name.toLowerCase().replace(/[^a-zA-Z0-9&)]/g, "-");
+        this.name.toLowerCase().replace(/[^a-zA-Z0-9&)]/g, "-") + "-" + this._id;
     next();
 });
 
@@ -87,7 +86,7 @@ productSchema.pre("save", function (next) {
 
 // ✅ Indexes for performance
 productSchema.index({ name: 1 });  
-productSchema.index({ slug: 1 });
+productSchema.index({ slug: 1 }, { unique: true });
 productSchema.index({ category: 1 });
 productSchema.index({ isActive: 1 });
 productSchema.index({ stockStatus: 1 });

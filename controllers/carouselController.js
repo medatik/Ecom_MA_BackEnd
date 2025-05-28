@@ -1,9 +1,13 @@
 const Carousel = require("../models/Carousel");
 
-exports.get_all_active_carousels = async (req, res) => {
+exports.get_active_carousels_by_name = async (req, res) => {
     try {
-        // Fetch all active carousels
-        const carousels = await Carousel.find({ isActive: true }).sort({
+        const { name } = req.query;
+        if (!name) {
+            return res.status(400).json({ message: "Name query parameter is required" });
+        }
+        // Fetch all active carousels with the specified name
+        const carousels = await Carousel.find({ isActive: true, name: name, groupActive: true }).sort({
         order: 1,
         }).select('title description image link buttonText order startDate endDate').lean();
 

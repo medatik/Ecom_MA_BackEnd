@@ -51,6 +51,5 @@ cartSchema.pre('save', async function(next) {
 cartSchema.index({ user: 1 });
 cartSchema.index({ 'items.product': 1 });
 
-
 const Cart = mongoose.model('Cart', cartSchema);
 module.exports = Cart; 

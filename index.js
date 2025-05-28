@@ -32,9 +32,9 @@ app.use(express.static(path.join(__dirname, 'public'))); // Pour servir des fich
 
 // Routes
 app.use('/api', carouselRoutes);
-app.use('/api', promotionRoutes);
 app.use('/api', categoryRoutes);
-app.use('/api/products', productRoutes);
+app.use('/api', productRoutes);
+app.use('/api', promotionRoutes);
 
 
 // Default route

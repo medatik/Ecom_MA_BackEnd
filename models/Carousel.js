@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const carouselSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: [true, "please provide a name"],
+        trim : true,
+    },
     title: {
         type: String,
         required: [true, 'Please provide a title'],
@@ -31,6 +36,10 @@ const carouselSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    groupActive: {
+        type: Boolean,
+        default: true
+    },
     startDate: {
         type: Date,
         default: Date.now
@@ -52,6 +61,7 @@ carouselSchema.pre('save', function(next) {
 
 // ✅ Indexes for performance
 carouselSchema.index({ isActive: 1 });
+carouselSchema.index({ name: 1 });
 
 // Optional compound index if you query active carousels within date ranges
 carouselSchema.index({ isActive: 1, startDate: 1, endDate: 1 });

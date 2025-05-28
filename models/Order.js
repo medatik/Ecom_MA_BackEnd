@@ -160,13 +160,14 @@ orderSchema.post("save", async function (doc) {
         }
       }
 
-      const product = await Product.findById(item.product).select("price");
+      const product = await Product.findById(item.product).select("price isActive");
       if (!product) {
         console.error(`Product not found for ID ${productId}`);
         continue;
       }
 
       productSale.totalRevenue = product.price * productSale.totalSales;
+      productSale.isActive = product.isActive; // Ensure isActive is updated
       await productSale.save();
     }
   }
@@ -207,10 +208,11 @@ orderSchema.post('findOneAndUpdate', async function (res) {
         { upsert: true, new: true }
       );
 
-      const product = await Product.findById(item.product).select("price");
+      const product = await Product.findById(item.product).select("price isActive");
       if (!product || !productSale) continue;
 
       productSale.totalRevenue = product.price * productSale.totalSales;
+      productSale.isActive = product.isActive; // Ensure isActive is updated
       await productSale.save();
     }
   } catch (error) {

@@ -4,7 +4,7 @@ const userData = [
         email: "jane@example.com",
         password: "securepassword",
         role: "admin",
-        phoneNumber: "987-654-3210",
+        // phoneNumber: "+9876543210",
         isActive: true
     },
     {
@@ -12,7 +12,7 @@ const userData = [
         email: "john@example.com",
         password: "securepassword",
         role: "commercial",
-        phoneNumber: "123-456-7890",
+        phoneNumber: "+1234567890",
         isActive: true
     },
     {
@@ -20,7 +20,7 @@ const userData = [
         email: "alice@example.com",
         password: "securepassword",
         role: "product manager",
-        phoneNumber: "555-123-4567",
+        // phoneNumber: "+5551234567",
         isActive: true
     },
     {
@@ -28,14 +28,14 @@ const userData = [
         email: "bob@example.com",
         password: "securepassword",
         role: "commercial",
-        phoneNumber: "555-765-4321",
+        phoneNumber: "+5557654321",
         isActive: false
     },
     {
         name: "Charlie Green",
         password: "securepassword",
         role: "customer",
-        phoneNumber: "555-987-6543",
+        phoneNumber: "+4559336243",
         isActive: true
     },
     {
@@ -43,15 +43,15 @@ const userData = [
         email: "chaplen@example.com",
         password: "securepassword",
         role: "customer",
-        phoneNumber: "555-987-6543",
+        phoneNumber: "+5559876543",
         isActive: true
     },
     {
         name: "Larry kane",
-        email: "larry@example.com",
+        // email: "larry@example.com",
         password: "securepassword",
         role: "customer",
-        phoneNumber: "555-987-6543",
+        phoneNumber: "+2559874543",
         isActive: false
     },
     {
@@ -59,15 +59,15 @@ const userData = [
         email: "harry@example.com",
         password: "securepassword",
         role: "customer",
-        phoneNumber: "555-987-6543",
+        phoneNumber: "+5859576343",
         isActive: true
     },
     {
         name: "Jhon Cena",
-        email: "Cena.Jhon@example.com",
+        // email: "Cena.Jhon@example.com",
         password: "securepassword",
         role: "customer",
-        phoneNumber: "555-987-6543",
+        phoneNumber: "+5659879543",
         isActive: true
     }
 ]
