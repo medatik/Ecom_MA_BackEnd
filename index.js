@@ -4,6 +4,12 @@ const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./config/dbConfig');
+const { requireAuth } = require('@clerk/clerk-sdk-node');
+const { ClerkExpressWithAuth } = require('@clerk/clerk-sdk-node');
+
+ClerkExpressWithAuth({
+  apiKey: process.env.CLERK_SECRET_KEY,
+});
 
 // Import models (order matters for references)
 require('./models/Category');

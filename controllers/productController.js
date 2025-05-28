@@ -123,10 +123,15 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductBySlugOrId = async (req, res) => {
   try {
     const { slugOrId } = req.params;
+    console.log("Slug or ID:", slugOrId);
+    const userId = req.auth.userId; // provided by Clerk middleware
+    console.log("User ID:", userId);
+
 
     const isValidObjectId = mongoose.Types.ObjectId.isValid(slugOrId);
     const filter = isValidObjectId ? { _id: new mongoose.Types.ObjectId(slugOrId) } : { slug: slugOrId };
     filter.isActive = true;
+    console.log("Filter:", filter);
 
     const product = await Product.findOne(
       filter
@@ -140,6 +145,7 @@ exports.getProductBySlugOrId = async (req, res) => {
         "name description oldPrice price category images specifications slug"
       )
       .lean();
+    console.log("Product:", product);
 
 
     if (!product) {
