@@ -123,12 +123,10 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductBySlugOrId = async (req, res) => {
   try {
     const { slugOrId } = req.params;
-    console.log("slugOrId:", slugOrId);
 
     const isValidObjectId = mongoose.Types.ObjectId.isValid(slugOrId);
     const filter = isValidObjectId ? { _id: new mongoose.Types.ObjectId(slugOrId) } : { slug: slugOrId };
     filter.isActive = true;
-    console.log("filter:", filter);
 
     const product = await Product.findOne(
       filter
@@ -143,7 +141,6 @@ exports.getProductBySlugOrId = async (req, res) => {
       )
       .lean();
 
-    console.log("product:", product);
 
     if (!product) {
       return res.status(404).json({
