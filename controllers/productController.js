@@ -123,15 +123,11 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductBySlugOrId = async (req, res) => {
   try {
     const { slugOrId } = req.params;
-    console.log("Slug or ID:", slugOrId);
-    const userId = req.auth.userId; // provided by Clerk middleware
-    console.log("User ID:", userId);
 
 
     const isValidObjectId = mongoose.Types.ObjectId.isValid(slugOrId);
     const filter = isValidObjectId ? { _id: new mongoose.Types.ObjectId(slugOrId) } : { slug: slugOrId };
     filter.isActive = true;
-    console.log("Filter:", filter);
 
     const product = await Product.findOne(
       filter
@@ -145,7 +141,6 @@ exports.getProductBySlugOrId = async (req, res) => {
         "name description oldPrice price category images specifications slug"
       )
       .lean();
-    console.log("Product:", product);
 
 
     if (!product) {
@@ -174,29 +169,32 @@ exports.getProductBySlugOrId = async (req, res) => {
 // Get product features
 exports.getProductFeatures = async (req, res) => {
   try {
+    const {getLatest = true, getMostSaled = true, getFeatured = true} = req.body;
+
+    let latest = [];
+    let mostSaled = [];
+    let featured = [];
+
     // Fetch latest products
-    const latest = await Product.find({ isActive: true}).sort({ createdAt: -1 }).limit(4);
+    if (getLatest === "true") {
+      latest = await Product.find({ isActive: true}).sort({ createdAt: -1 }).limit(4);
+    }
 
     // Fetch most saled products
-    const mostSaled = await ProductSale.find({isActive: true}).sort({ totalSales: -1 }).limit(4)
-    .populate({
-      path: "product",
-      select: "name description oldPrice price category images specifications slug",
-      model: Product,
-    });
-
-    // Fetch featured products
-    const featured = await Product.aggregate([
-      { $match: { isActive: true, stock: { $gt: 0 } }},
-      { $sample: { size: 4 } }
-    ]);
-
-    if (!latest && !mostSaled && !featured) {
-      return res.status(404).json({
-        success: false,
-        error: "Not Found",
-        message: "No products found",
+    if (getMostSaled === "true") {
+      mostSaled = await ProductSale.find({isActive: true}).sort({ totalSales: -1 }).limit(4)
+      .populate({
+        path: "product",
+        select: "name description oldPrice price category images specifications slug",
+        model: Product,
       });
+    }
+    // Fetch featured products
+    if (getFeatured === "true") {
+      featured = await Product.aggregate([
+        { $match: { isActive: true, stock: { $gt: 0 } }},
+        { $sample: { size: 4 } }
+      ]);
     }
 
     res.status(200).json({

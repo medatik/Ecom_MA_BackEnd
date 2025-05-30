@@ -2,7 +2,7 @@ const Carousel = require("../models/Carousel");
 
 exports.get_active_carousels_by_name = async (req, res) => {
     try {
-        const { name } = req.query;
+        const { name } = req.body;
         if (!name) {
             return res.status(400).json({ message: "Name query parameter is required" });
         }
@@ -21,6 +21,6 @@ exports.get_active_carousels_by_name = async (req, res) => {
         });
 
     } catch (error) {
-        return res.status(500).json({ message: "Internal Server Error", error });
+        return res.status(500).json({ message: "Something Went Wrong", error });
     }
 };

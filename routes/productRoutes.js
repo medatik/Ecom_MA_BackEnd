@@ -5,15 +5,12 @@ const {
     getProductBySlugOrId,
     getProductFeatures
 } = require('../controllers/productController');
-const { ClerkExpressWithAuth } = require('@clerk/clerk-sdk-node');
-
-const requireAuth = ClerkExpressWithAuth();
 
 // GET /api/products
-router.get('/products', requireAuth, getAllProducts);
- 
+router.get('/products', getAllProducts);
+
 // GET /api/products/:slug-id
-router.get('/products/:slugOrId', requireAuth, getProductBySlugOrId);
+router.get('/products/:slugOrId', getProductBySlugOrId);
 
 // GET /api/product-features
 router.get('/product-features', getProductFeatures);
