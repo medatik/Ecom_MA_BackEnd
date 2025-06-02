@@ -44,9 +44,6 @@ categorySchema.pre("save", function (next) {
     next();
 });
 
-// comented after discoveting that unique: true creates an index automatically
-// categorySchema.index({ name: 1 }, { unique: true });  
-
 // ✅ Indexes for performance
 categorySchema.index({ slug: 1 });
 categorySchema.index({ isActive: 1 });

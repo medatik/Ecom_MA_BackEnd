@@ -7,6 +7,7 @@ const Order = require("../models/Order");
 const Carousel = require("../models/Carousel");
 const Promotion = require("../models/Promotion");
 const ProductSale = require("../models/ProductSale");
+const Role = require("../models/Role");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -18,6 +19,7 @@ const cartData = require("./data/carts");
 const orderData = require("./data/orders");
 const carouselData = require("./data/carousels");
 const promotionData = require("./data/promotions");
+const rolesData = require("./data/roles");
 
 const URL = process.env.MONGODB_URL;
 
@@ -30,8 +32,8 @@ const deleteData = async () => {
     await Product.deleteMany();
     console.log("Deleted all products");
     
-    await User.deleteMany();
-    console.log("Deleted all users");
+    // await User.deleteMany();
+    // console.log("Deleted all users");
     
     await Cart.deleteMany();
     console.log("Deleted all carts");
@@ -47,6 +49,9 @@ const deleteData = async () => {
 
     await ProductSale.deleteMany();
     console.log("Deleted all product sales");
+
+    await Role.deleteMany();
+    console.log("Deleted all roles");
 
     const end = new Date();
     const duration = (end - start) / 1000; 
@@ -148,10 +153,11 @@ const insertCarts = async () => {
 const insertOrders = async () => {
     const start = new Date();
     console.log(`Inserting orders...`);
+
     let i = 0;
     for (const data of orderData) {
         // Find the user ObjectId
-        const userDoc = await User.findOne({ name: data.user }).select("_id");
+        const userDoc = await User.findOne({}).select("_id");
         if (!userDoc) {
             console.log(`User not found: ${data.user}`);
             continue;
@@ -232,6 +238,21 @@ const insertPromotions = async () => {
     console.log("--------------------------------------------------");
 }
 
+const insertRoles = async () => {
+    const start = new Date();
+    console.log(`Inserting roles...`);
+    let i = 0;
+    for (const role of rolesData) {
+        const newRole = new Role(role);
+        await newRole.save();
+        i++;
+    }
+    const end = new Date();
+    const duration = (end - start) / 1000;
+    console.log(`Inserted ${i} roles successfully in ${duration} seconds`);
+    console.log("--------------------------------------------------");
+}
+
 const seedData = async () => {
     try {
 
@@ -244,19 +265,13 @@ const seedData = async () => {
 
         await insertProducts();
 
-        // This code is used to drop the index on the email field to avoid duplicate email error
-        // await mongoose.connect(URL);
-        // await mongoose.connection.collection("users").dropIndex("email_1");
-
-        await insertUsers();
-
-        await insertCarts();
-
         await insertOrders();
 
         await insertCarousels();
 
         await insertPromotions();
+
+        await insertRoles();
         
 
         await mongoose.disconnect();

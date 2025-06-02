@@ -10,12 +10,14 @@ require('./models/Category');
 require('./models/Product');
 require('./models/Promotion');
 require('./models/Carousel');
+require('./models/User');
 
 // Import routes
 const productRoutes = require('./routes/productRoutes');
 const promotionRoutes = require('./routes/promotionRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const carouselRoutes = require('./routes/carouselRoute');
+const userRoutes = require('./routes/userRoute');
 
 // Créer l'application Express
 const app = express();
@@ -35,11 +37,12 @@ app.use('/api', carouselRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', promotionRoutes);
+app.use('/api', userRoutes);
 
 
 // Default route
 app.get('/', (req, res) => {
-  res.send('Welcome to the E-commerce API!');
+  res.send(' Ach kadir hna asadi9i !? ');
 });
 
 // Error handling middleware

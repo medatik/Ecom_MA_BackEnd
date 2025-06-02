@@ -83,41 +83,7 @@ orderSchema.pre("save", function (next) {
   next();
 });
 
-// insert the sales history into the ProductSales
-// orderSchema.post("save", async function (doc) {
-//   if (doc.items && doc.items.length > 0) {
-//     for (const item of doc.items) {
-//       try {
-//         let productSale = await ProductSale.findOneAndUpdate(
-//           { product: item.product },
-//           { $inc: { totalSales: item.quantity } },
-//           { upsert: true, new: true }
-//         );
-
-//         if (!productSale) {
-//           productSale = await ProductSale.findOne({ product: item.product });
-//           if (!productSale) {
-//             console.error(`ProductSale not found or created for product ID ${item.product}`);
-//             continue;
-//           }
-//         }
-
-//         // Recalculate totalRevenue after totalSales update
-//         const product = await Product.findById(item.product).select('price');
-//         if (!product) {
-//           console.error(`Product not found for ID ${item.product}`);
-//           continue;
-//         }
-
-//         productSale.totalRevenue = product.price * productSale.totalSales;
-//         await productSale.save();
-//       } catch (error) {
-//         console.error("Error updating product sale:", error);
-//       }
-//     }
-//   }
-// });
-
+// Insert Saled Product into ProductSale collection
 orderSchema.pre("save", async function (next){
   if (!this.isModified("items")) return next();
   if (!this.isNew) {

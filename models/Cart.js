@@ -1,55 +1,65 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const cartSchema = new mongoose.Schema({
+const cartSchema = new mongoose.Schema(
+  {
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-    items: [{
+    items: [
+      {
         product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product',
-            required: true
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
         },
         quantity: {
-            type: Number,
-            required: true,
-            min: [1, 'Quantity cannot be less than 1']
-        }
-    }],
+          type: Number,
+          required: true,
+          min: [1, "Quantity cannot be less than 1"],
+        },
+        selectedOptions: {
+          // optional: size, color, etc.
+          type: Map,
+          of: String,
+        },
+      },
+    ],
     totalAmount: {
-        type: Number,
-        default: 0
-    }
-}, {
-    timestamps: true
-});
+      type: Number,
+      default: 0,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 // Calculate total amount before saving
-cartSchema.pre('save', async function(next) {
-    try {
-        if (this.items && this.items.length > 0) {
-            let total = 0;
-            for (const item of this.items) {
-                const product = await mongoose.model('Product').findById(item.product);
-                if (product) {
-                    total += product.price * item.quantity;
-                }
-            }
-            this.totalAmount = total;
-        } else {
-            this.totalAmount = 0;
+cartSchema.pre("save", async function (next) {
+  try {
+    if (this.items && this.items.length > 0) {
+      let total = 0;
+      for (const item of this.items) {
+        const product = await mongoose.model("Product").findById(item.product);
+        if (product) {
+          total += product.price * item.quantity;
         }
-        next();
-    } catch (error) {
-        next(error);
+      }
+      this.totalAmount = total;
+    } else {
+      this.totalAmount = 0;
     }
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 // ✅ Indexes for performance
 cartSchema.index({ user: 1 });
-cartSchema.index({ 'items.product': 1 });
+cartSchema.index({ "items.product": 1 });
 
-const Cart = mongoose.model('Cart', cartSchema);
-module.exports = Cart; 
+const Cart = mongoose.model("Cart", cartSchema);
+module.exports = Cart;
