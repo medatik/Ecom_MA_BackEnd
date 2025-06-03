@@ -11,6 +11,7 @@ require('./models/Product');
 require('./models/Promotion');
 require('./models/Carousel');
 require('./models/User');
+require('./models/Cart');
 
 // Import routes
 const productRoutes = require('./routes/productRoutes');
@@ -18,6 +19,7 @@ const promotionRoutes = require('./routes/promotionRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const carouselRoutes = require('./routes/carouselRoute');
 const userRoutes = require('./routes/userRoute');
+const cartRoutes = require('./routes/cartRoute');
 
 // Créer l'application Express
 const app = express();
@@ -38,6 +40,7 @@ app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', promotionRoutes);
 app.use('/api', userRoutes);
+app.use('/api', cartRoutes);
 
 
 // Default route

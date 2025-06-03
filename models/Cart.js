@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
+const Product = require("./Product"); 
 
 const cartSchema = new mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "User",
       required: true,
     },
@@ -18,11 +19,6 @@ const cartSchema = new mongoose.Schema(
           type: Number,
           required: true,
           min: [1, "Quantity cannot be less than 1"],
-        },
-        selectedOptions: {
-          // optional: size, color, etc.
-          type: Map,
-          of: String,
         },
       },
     ],
@@ -42,7 +38,7 @@ cartSchema.pre("save", async function (next) {
     if (this.items && this.items.length > 0) {
       let total = 0;
       for (const item of this.items) {
-        const product = await mongoose.model("Product").findById(item.product);
+        const product = await Product.findById(item.product);
         if (product) {
           total += product.price * item.quantity;
         }

@@ -16,8 +16,7 @@ const requireAuth = async (req, res, next) => {
     });
 
     req.userId = payload.user_id;
-    req.email = payload.email;
-    req.role = payload.role; 
+    req.email = payload.user_email;
     // console.log("payload", payload);
     next();
   } catch (error) {
